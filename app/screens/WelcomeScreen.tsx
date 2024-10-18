@@ -1,17 +1,38 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useRef } from 'react';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Animated } from 'react-native';
 
 const WelcomeScreen: React.FC = ({ navigation }) => {
+  const scaleValue = useRef(new Animated.Value(1)).current; // Scale animation value
+
+  const handlePressIn = () => {
+    Animated.spring(scaleValue, {
+      toValue: 0.9, // Shrink the button when pressed
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scaleValue, {
+      toValue: 1, // Return to original size
+      useNativeDriver: true,
+    }).start();
+    
+    // Navigate to the Signup screen
+    navigation.navigate('Signup');
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to Alize!</Text>
-      <Text style={styles.subtitle}>Let's Connect Together</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Login')}
+      <Text style={styles.title}>Welcome to RoyalKavery!</Text>
+      <Text style={styles.subtitle}>Let's Connect With Business Minds</Text>
+      <TouchableWithoutFeedback
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
       >
-        <Text style={styles.buttonText}>Get Started</Text>
-      </TouchableOpacity>
+        <Animated.View style={[styles.button, { transform: [{ scale: scaleValue }] }]}>
+          <Text style={styles.buttonText}>Get Started</Text>
+        </Animated.View>
+      </TouchableWithoutFeedback>
     </View>
   );
 };

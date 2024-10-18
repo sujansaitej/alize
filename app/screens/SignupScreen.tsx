@@ -6,7 +6,7 @@ import { RootStackParamList } from '../types';
 import CustomButton from '../components/CustomButton';
 import { COLORS, SIZES } from '../theme';
 
-type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Signup'>;
+
 
 interface Props {
   navigation: SignupScreenNavigationProp;
