@@ -57,13 +57,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   button: {
-    backgroundColor: '#0000FF',
+    backgroundColor: 'white', // White button background
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
   },
   buttonText: {
-    color: 'white',
+    color: '#0000FF', // Blue text color to contrast with white background
     fontSize: 16,
   },
 });

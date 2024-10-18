@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types';
-import { Ionicons } from '@expo/vector-icons'; // For icons like date and back arrow
 import CustomButton from '../components/CustomButton';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from 'date-fns'; // Optional for formatting date nicely
@@ -31,79 +30,77 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
     setShowDatePicker(true);
   };
 
+  const handleSignup = () => {
+    // Add signup logic here
+    navigation.navigate('Home');
+  };
+
   return (
     <View style={styles.container}>
-      {/* Back arrow */}
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-        <Ionicons name="arrow-back" size={24} color="black" />
-      </TouchableOpacity>
+      <View style={styles.card}>
+        {/* Title */}
+        <Text style={styles.title}>Sign Up</Text>
 
-      {/* Title */}
-      <Text style={styles.title}>Sign up</Text>
-
-      {/* Already have account */}
-      <Text style={styles.switchText}>
-        Already have an account?{' '}
-        <Text style={styles.loginLink} onPress={() => navigation.navigate('Login')}>
-          Login
+        {/* Already have an account? */}
+        <Text style={styles.switchText}>
+          Already have an account?{' '}
+          <Text style={styles.linkText} onPress={() => navigation.navigate('Login')}>
+            Login
+          </Text>
         </Text>
-      </Text>
 
-      {/* Full Name Input */}
-      <TextInput
-        style={styles.input}
-        placeholder="Full Name"
-        value={name}
-        onChangeText={setName}
-      />
-
-      {/* Email Input */}
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-      />
-
-      {/* Birthdate Picker */}
-      <TouchableOpacity onPress={showPicker} style={styles.input}>
-        <Text>{format(birthdate, 'dd/MM/yyyy')}</Text>
-        <Ionicons name="calendar" size={20} color="gray" style={styles.iconRight} />
-      </TouchableOpacity>
-
-      {showDatePicker && (
-        <DateTimePicker
-          value={birthdate}
-          mode="date"
-          display={Platform.OS === 'ios' ? 'inline' : 'default'}
-          onChange={onChangeDate}
-        />
-      )}
-
-      {/* Phone Number Input */}
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        value={phoneNumber}
-        onChangeText={setPhoneNumber}
-        keyboardType="phone-pad"
-      />
-
-      {/* Password Input */}
-      <View style={styles.passwordContainer}>
+        {/* Full Name Input */}
         <TextInput
-          style={styles.passwordInput}
-          placeholder="Set Password"
+          style={styles.input}
+          placeholder="Full Name"
+          value={name}
+          onChangeText={setName}
+        />
+
+        {/* Email Input */}
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+        />
+
+        {/* Birthdate Picker */}
+        <TouchableOpacity onPress={showPicker} style={styles.input}>
+          <Text>{format(birthdate, 'dd/MM/yyyy')}</Text>
+        </TouchableOpacity>
+
+        {showDatePicker && (
+          <DateTimePicker
+            value={birthdate}
+            mode="date"
+            display={Platform.OS === 'ios' ? 'inline' : 'default'}
+            onChange={onChangeDate}
+          />
+        )}
+
+        {/* Phone Number Input */}
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+          keyboardType="phone-pad"
+        />
+
+        {/* Password Input */}
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
-        <Ionicons name="eye-off" size={20} color="gray" style={styles.iconRight} />
-      </View>
 
-      {/* Register Button */}
-      <CustomButton title="Register" onPress={() => { /* Handle registration */ }} />
+        {/* Register Button */}
+        <CustomButton title="Register" onPress={handleSignup} />
+      </View>
     </View>
   );
 };
@@ -111,56 +108,47 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#FFBB33', // Set the background color to match the image you shared
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ff9800', // Consistent background color
   },
-  backButton: {
-    marginBottom: 20,
+  card: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '90%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5, // Shadow effect for Android
   },
   title: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 10,
+    color: '#000',
+    textAlign: 'center',
+    marginBottom: 20,
   },
   switchText: {
     fontSize: 16,
+    color: '#000',
     marginBottom: 20,
-    textAlign: 'left',
+    textAlign: 'center',
   },
-  loginLink: {
-    color: 'red',
+  linkText: {
+    color: '#007bff',
     fontWeight: 'bold',
   },
   input: {
-    height: 48,
-    backgroundColor: '#F6F6F6',
+    height: 50,
+    backgroundColor: '#f5f5f5',
+    borderColor: '#ccc',
+    borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 10,
-    marginVertical: 8,
-    borderColor: '#E5E5E5',
-    borderWidth: 1,
+    marginVertical: 10,
     justifyContent: 'center',
-  },
-  passwordContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F6F6F6',
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginVertical: 8,
-    borderColor: '#E5E5E5',
-    borderWidth: 1,
-  },
-  passwordInput: {
-    flex: 1,
-    height: 48,
-  },
-  iconRight: {
-    position: 'absolute',
-    right: 10,
-  },
-  dateTimePicker: {
-    width: '100%',
   },
 });
 
