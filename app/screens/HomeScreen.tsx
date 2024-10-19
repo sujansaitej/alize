@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, TouchableOpacity, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // For the back icon
 
-const HomeScreen = () => {
-  const [modalVisible, setModalVisible] = useState(true); // Modal is initially visible
+const HomeScreen = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false); // Modal is initially hidden
 
   const handleSubmit = () => {
     setModalVisible(false); // Close the modal when submit is pressed
     console.log('Form submitted!');
+    navigation.navigate('StayTuned'); // Navigate to the StayTuned screen
   };
 
   return (
@@ -43,7 +44,7 @@ const HomeScreen = () => {
 
       {/* Main content of the home screen */}
       <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}>
-        <Text style={styles.buttonText}>Continue to the app</Text>
+        <Text style={styles.buttonText}>Register Your Account</Text>
       </TouchableOpacity>
     </View>
   );

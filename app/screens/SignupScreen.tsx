@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../types';
-import CustomButton from '../components/CustomButton';
+import { RootStackParamList } from '../types'; // Make sure RootStackParamList is defined properly
+import CustomButton from '../components/CustomButton'; // Custom Button component
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from 'date-fns'; // Optional for formatting date nicely
 
+// Define type for navigation prop
 type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Signup'>;
 
+// Define Props interface
 interface Props {
   navigation: SignupScreenNavigationProp;
 }
@@ -20,19 +29,22 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
+  // Handler for date change
   const onChangeDate = (event: any, selectedDate: Date | undefined) => {
     const currentDate = selectedDate || birthdate;
     setShowDatePicker(false);
     setBirthdate(currentDate);
   };
 
+  // Show DatePicker
   const showPicker = () => {
     setShowDatePicker(true);
   };
 
+  // Handle signup process
   const handleSignup = () => {
-    // Add signup logic here
-    navigation.navigate('Home');
+    // Add your signup logic here (e.g., form validation, API call)
+    navigation.navigate('Home'); // Redirect to Home after signup
   };
 
   return (
@@ -44,7 +56,10 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
         {/* Already have an account? */}
         <Text style={styles.switchText}>
           Already have an account?{' '}
-          <Text style={styles.linkText} onPress={() => navigation.navigate('Login')}>
+          <Text
+            style={styles.linkText}
+            onPress={() => navigation.navigate('Login')}
+          >
             Login
           </Text>
         </Text>
